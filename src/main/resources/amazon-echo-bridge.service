@@ -1,0 +1,13 @@
+[Unit]
+Description=amazon-echo-bridge service
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/default/amazon-echo-bridge
+WorkingDirectory=/usr/share/amazon-echo-bridge
+ExecStart=/usr/bin/java -jar /usr/share/amazon-echo-bridge/amazon-echo-bridge-${VERSION}.jar --upnp.config.address=${UPNP_CONFIG_ADDRESS} --server.port=${SERVER_PORT} --emulator.portbase=${EMULATOR_PORTBASE}
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
